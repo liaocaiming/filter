@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<style>
+  div {
+    padding: 20px;
+    /* border: 1px solid #2dd627; */
+    width: 800px;
+    margin: 0 auto;
+  }
+
+  span {
+    width: 120px;
+    text-align: right;
+    display: inline-block;
+  }
+
+  textarea,
+  input {
+    width: 500px;
+  }
+
+  button {
+    margin-left: 20px;
+  }
+
+  .fl {
+    float: left
+  }
+
+  .label {
+    width: 120px;
+  }
+
+  .replace {
+    overflow: hidden;
+  }
+
+  .input {
+    width: 400px;
+    margin-bottom: 10px;
+  }
+
+  .replace_input {
+    width: 500px;
+  }
+
+  .label {
+    padding: 0;
+  }
+
+  .inputContainer {
+    width: 400px;
+  }
+</style>
+
+<body>
+  <div>
+    <span>内容： </span>
+    <textarea type="text" id="text" rows="10"></textarea>
+  </div>
+
+  <div class="replace">
+    <div class="fl label"> 被替换的内容:</div>
+    <span class="fl replace_input">
+      <span class="inputContainer fl">
+        <input type="text" class="input" rows="10">
+      </span>
+      <button class="fl" id="newBtn">新增</button>
+    </span>
+  </div>
+
+  <div>
+    <button id="btn">确定</button>
+  </div>
+
+  <div>
+    <span>改后：</span>
+    <textarea type="text" id="after" rows="10"></textarea>
+  </div>
+
+
+  <script>
+    var otxt = document.getElementById('text');
+    var after = document.getElementById('after');
+    var inputContainer = document.querySelector('.inputContainer');
+    document.getElementById('newBtn').addEventListener('click', function () {
+      var input = document.createElement('input');
+      input.setAttribute('class', 'input');
+      inputContainer.appendChild(input);
+    })
+    document.getElementById('btn').onclick = function () {
+      var inputs = document.querySelectorAll('.inputContainer .input');
+      var str = otxt.value;
+      Array.prototype.slice.call(inputs).forEach(function (item) {
+        var reg = new RegExp(item.value, 'g');
+        str = str.replace(reg, '');
+      })
+      after.value = str
+    }
+  </script>
+</body>
+
+</html>
